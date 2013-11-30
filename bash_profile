@@ -39,6 +39,7 @@ alias vh="vagrant halt"
 alias gs="git status"
 alias gc="git commit"
 alias grm="git rm --cached"
+alias gp="git push -u origin master"
 
 # Environment Variables
 export CLICOLOR=1
