@@ -8,7 +8,7 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bash_profile vim vimrc"    # list of files/folders to symlink in homedir
+files="bash_profile vim vimrc gitconfig"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -29,3 +29,7 @@ for file in $files; do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+
+# symlink .bash_profile to .profile in the case of mac environment
+ln -s ~/.bash_profile ~/.profile
+

@@ -1,0 +1,13 @@
+[user]
+	name = Kevin Campbell
+	email = kcampbell@kobellsystems.com
+[core]
+	excludesfile = /Users/kevin/.gitignore_global
+[diff]
+	tool = vimdiff
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
