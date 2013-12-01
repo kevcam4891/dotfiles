@@ -4,3 +4,9 @@
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/bundle/The-NERD-tree"]
+	path = vim/bundle/The-NERD-tree
+	url = https://github.com/vim-scripts/The-NERD-tree.git
