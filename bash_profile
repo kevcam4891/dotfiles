@@ -45,3 +45,4 @@ alias gp="git push -u origin master"
 export CLICOLOR=1
 export LSCOLORS='exfxcxdxbxegedabagacad'
 export XDEBUG_CONFIG="idekey=netbeans-xdebug"
+export PATH=/usr/local/git/bin:$PATH 

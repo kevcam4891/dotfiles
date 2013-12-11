@@ -1,16 +1,33 @@
 " Basic Settings
-set incsearch                   " Search as you type
 set number
 set hidden
-set hlsearch
 set wildmenu
 set nowrap
-syntax on
-colorscheme desert
+set ignorecase
+set hlsearch       " Highlite search strings
+set incsearch      " Search as you type
+set nocompatible   " We're running Vim, not Vi!
+syntax on          " Enable syntax highlighting
+filetype on        " Enable filetype detection
+filetype indent on " Enable filetype-specific indenting
+filetype plugin on " Enable filetype-specific plugins
+compiler ruby      " Enable compiler support for ruby
+colorscheme desert " Best colorscheme ever
 
 set noexpandtab
 set tabstop=2
 set shiftwidth=2
+
+let mapleader=","
+
+" Fast Saving
+nmap <leader>w :w!<cr>
+
+
+set noerrorbells " No annoying sound on errors
+set novisualbell
+set t_vb=
+set tm=500
 
 set lcs=tab:>-,eol:<,nbsp:%
 
@@ -19,8 +36,9 @@ map <c-s> :w<cr>
 map <c-q> :q<cr>
 
 " Sessions
-map <F3> :mks!
-map <F4> :mkview! 
+nnoremap <F3> :set hlsearch!<CR>
+map <F4> :mks!
+map <F5> :mkview! 
 
 " Faster Scrolling
 nmap <c-j> 10j
@@ -58,6 +76,9 @@ set backspace=2
 vmap <Leader>px !xmllint --format -<CR>
 nmap <Leader>px !!xmllint --format -<CR>
 nmap <Leader>pxa :%!xmllint --format -<CR>
+
+autocmd FileType puppet setlocal noexpandtab
+
 
 " ================================================================================ 
 " Buffer Control
@@ -97,11 +118,6 @@ nmap ,sv :so $MYVIMRC<CR>
 set scrolloff=8
 
 map <F2> :NERDTreeToggle<CR>
-
-if has("autocmd")
-  filetype plugin indent on
-endif  
-
 
 " Toggle Abs/Rel Line Numbers
 function! NumberToggle()

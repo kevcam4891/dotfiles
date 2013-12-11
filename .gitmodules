@@ -10,3 +10,12 @@
 [submodule "vim/bundle/The-NERD-tree"]
 	path = vim/bundle/The-NERD-tree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
+[submodule "vim/bundle/vim-surround"]
+	path = vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/ultisnips"]
+	path = vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
