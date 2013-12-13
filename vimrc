@@ -4,19 +4,22 @@ set hidden
 set wildmenu
 set nowrap
 set ignorecase
-set hlsearch       " Highlite search strings
-set incsearch      " Search as you type
-set nocompatible   " We're running Vim, not Vi!
-syntax on          " Enable syntax highlighting
-filetype on        " Enable filetype detection
-filetype indent on " Enable filetype-specific indenting
-filetype plugin on " Enable filetype-specific plugins
-compiler ruby      " Enable compiler support for ruby
-colorscheme desert " Best colorscheme ever
+set hlsearch              " Highlite search strings
+set incsearch             " Search as you type
+set nocompatible          " We're running Vim, not Vi!
+syntax on                 " Enable syntax highlighting
+filetype on               " Enable filetype detection
+filetype plugin indent on " Enable filetype-specific indenting
+filetype plugin on        " Enable filetype-specific plugins
+compiler ruby             " Enable compiler support for ruby
+colorscheme desert        " Best colorscheme ever
 
 set noexpandtab
 set tabstop=2
 set shiftwidth=2
+set autoindent
+set smartindent
+
 
 let mapleader=","
 
@@ -80,6 +83,9 @@ nmap <Leader>pxa :%!xmllint --format -<CR>
 autocmd FileType puppet setlocal noexpandtab
 
 
+
+
+
 " ================================================================================ 
 " Buffer Control
 " ================================================================================ 
@@ -117,7 +123,9 @@ nmap ,sv :so $MYVIMRC<CR>
 " lines from the bottom
 set scrolloff=8
 
+let NERDTreeShowHidden=1 " NERDTree Settings
 map <F2> :NERDTreeToggle<CR>
+
 
 " Toggle Abs/Rel Line Numbers
 function! NumberToggle()
