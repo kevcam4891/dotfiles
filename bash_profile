@@ -1,5 +1,9 @@
-# Aliases: General
+# File System
 alias ll="ls -lah"
+alias rmd="rm -rfv"
+alias c="cd .."
+
+# Aliases: General
 alias qm="cd /Applications/MAMP/htdocs/qm"
 alias qmdev="cd ~/Documents/Development\ Projects/QM"
 alias sqllog="tail -f /Applications/MAMP/logs/mysql_general.log"
@@ -22,11 +26,11 @@ alias www="cd /Applications/MAMP/htdocs"
 alias arc="/Applications/MAMP/htdocs/qm/app/vendors/fb/arcanist/bin/arc"
 alias zendsign="/Applications/Zend\ Guard/plugins/com.zend.guard.core.resources.macosx_5.5.0/resources/zendenc_sign"
 alias zendenc="/Applications/Zend\ Guard/plugins/com.zend.guard.core.resources.macosx_5.5.0/resources/zendenc53"
-alias c="cd .."
 alias his="history"
 
 # Cake
 alias cake="./Console/cake"
+alias qmc="./Console/cake"
 
 # Vagrant
 alias v="vagrant"
