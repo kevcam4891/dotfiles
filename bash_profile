@@ -3,8 +3,14 @@ alias ll="ls -lah"
 alias rmd="rm -rfv"
 alias c="cd .."
 
+# Development
+alias w3="cd ~/dev/www"
+alias qm="cd ~/dev/www/itemlogic"
+alias qmv="cd ~/dev/www/itemlogic/itemlogic"
+alias qmdr="cd ~/dev/www/itemlogic/docroot"
+alias qmwr="cd ~/dev/www/itemlogic/docroot/app/webroot"
+
 # Aliases: General
-alias qm="cd /Applications/MAMP/htdocs/qm"
 alias qmdev="cd ~/Documents/Development\ Projects/QM"
 alias sqllog="tail -f /Applications/MAMP/logs/mysql_general.log"
 alias sqllogclear="> /Applications/MAMP/logs/mysql_general.log"
@@ -35,7 +41,7 @@ alias qmc="./Console/cake"
 # Vagrant
 alias v="vagrant"
 alias vi="vagrant init"
-alias vs="vagrant ssh"
+alias vs="vagrant up && vagrant ssh"
 alias vu="vagrant up"
 alias vh="vagrant halt"
 
@@ -50,3 +56,5 @@ export CLICOLOR=1
 export LSCOLORS='exfxcxdxbxegedabagacad'
 export XDEBUG_CONFIG="idekey=netbeans-xdebug"
 export PATH=/usr/local/git/bin:$PATH 
+
+stty -ixon -ixoff

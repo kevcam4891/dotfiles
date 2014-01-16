@@ -7,6 +7,17 @@ set ignorecase
 set hlsearch              " Highlite search strings
 set incsearch             " Search as you type
 set nocompatible          " We're running Vim, not Vi!
+set noswapfile
+set noexpandtab
+set tabstop=2
+set shiftwidth=2
+set autoindent
+"set smartindent
+
+" When the page starts to scroll, keep the cursor 8 lines from the top and 8
+" lines from the bottom
+set scrolloff=8
+
 syntax on                 " Enable syntax highlighting
 filetype on               " Enable filetype detection
 filetype plugin indent on " Enable filetype-specific indenting
@@ -14,18 +25,7 @@ filetype plugin on        " Enable filetype-specific plugins
 compiler ruby             " Enable compiler support for ruby
 colorscheme desert        " Best colorscheme ever
 
-set noexpandtab
-set tabstop=2
-set shiftwidth=2
-set autoindent
-set smartindent
-
-
 let mapleader=","
-
-" Fast Saving
-nmap <leader>w :w!<cr>
-
 
 set noerrorbells " No annoying sound on errors
 set novisualbell
@@ -33,10 +33,6 @@ set t_vb=
 set tm=500
 
 set lcs=tab:>-,eol:<,nbsp:%
-
-" Basic Bindings
-map <c-s> :w<cr>
-map <c-q> :q<cr>
 
 " Sessions
 nnoremap <F3> :set hlsearch!<CR>
@@ -47,11 +43,8 @@ map <F5> :mkview!
 nmap <c-j> 10j
 nmap <c-k> 10k
 
-" Window Management
-map ,l <c-w>l
-map ,h <c-w>h
-map ,j <c-w>j
-map ,k <c-w>k
+" Faster Save
+inoremap <c-s> <c-o>:w<cr>
 
 map <leader>bn :bp
 map <leader>bm :bn
@@ -83,8 +76,26 @@ nmap <Leader>pxa :%!xmllint --format -<CR>
 autocmd FileType puppet setlocal noexpandtab
 
 
+" ================================================================================ 
+" Windows
+" ================================================================================ 
+
+" resize horzontal split window
+"nmap <> <C-W>-<C-W>-
+"nmap <C-Right> <C-W>+<C-W>+
+" resize vertical split window
+nmap <C-Up> <C-W>><C-W>>
+nmap <C-Down> <C-W><<C-W><
+
+nmap <S-F9> 3<C-w><
+nmap <F9> 3<C-w>>
 
 
+" Move to another window
+map ,l <c-w>l
+map ,h <c-w>h
+map ,j <c-w>j
+map ,k <c-w>k
 
 " ================================================================================ 
 " Buffer Control
@@ -105,8 +116,13 @@ map <leader>k :bn
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ }
 
-map <C-O> :CtrlPBuffer<CR>
+set wildignore+=mathjax
+
+"map <C-O> :CtrlPBuffer<CR>
 
 " Set the status line the way i like it
 " set stl=%f\ %m\ %r%{fugitive#statusline()}\ Line:%l/%L[%p%%]\ Col:%v\ Buf:#%n\ [%b][0x%B]
@@ -118,14 +134,60 @@ set laststatus=2
 nmap <silent> ,ev :e $MYVIMRC<CR>
 nmap ,sv :so $MYVIMRC<CR>
 
-
-" When the page starts to scroll, keep the cursor 8 lines from the top and 8
-" lines from the bottom
-set scrolloff=8
+" ================================================================================ 
+" NERD Tree
+" ================================================================================ 
 
 let NERDTreeShowHidden=1 " NERDTree Settings
 map <F2> :NERDTreeToggle<CR>
+map <leader>ntf :NERDTreeFind<CR>
+map <leader>ntb :OpenBookmark
 
+" ================================================================================ 
+" Ultisnips
+" ================================================================================ 
+
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snippets"]
+
+
+" Escape special characters in a string for exact matching.
+" This is useful to copying strings from the file to the search tool
+" Based on this - http://peterodding.com/code/vim/profile/autoload/xolox/escape.vim
+function! EscapeString (string)
+  let string=a:string
+  " Escape regex characters
+  let string = escape(string, '^$.*\/~[]')
+  " Escape the line endings
+  let string = substitute(string, '\n', '\\n', 'g')
+  return string
+endfunction
+
+" Get the current visual block for search and replaces
+" This function passed the visual block through a string escape function
+" Based on this - http://stackoverflow.com/questions/676600/vim-replace-selected-text/677918#677918
+function! GetVisual() range
+  " Save the current register and clipboard
+  let reg_save = getreg('"')
+  let regtype_save = getregtype('"')
+  let cb_save = &clipboard
+  set clipboard&
+
+  " Put the current visual selection in the " register
+  normal! ""gvy
+  let selection = getreg('"')
+
+  " Put the saved registers and clipboards back
+  call setreg('"', reg_save, regtype_save)
+  let &clipboard = cb_save
+
+  "Escape any special characters in the selection
+  let escaped_selection = EscapeString(selection)
+
+  return escaped_selection
+endfunction
+
+" Start the find and replace command across the entire file
+vmap <leader>z <Esc>:%s/<c-r>=GetVisual()<cr>/
 
 " Toggle Abs/Rel Line Numbers
 function! NumberToggle()
