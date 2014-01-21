@@ -50,6 +50,7 @@ alias gs="git status"
 alias gc="git commit"
 alias grm="git rm --cached"
 alias gp="git push -u origin master"
+alias gsmls="git submodule"
 
 # Environment Variables
 export CLICOLOR=1

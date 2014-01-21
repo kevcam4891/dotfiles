@@ -1,0 +1,35 @@
+snippet il "ItemLogic namespace" !w
+ItemLogic.
+endsnippet
+
+snippet mdr "MooTools onDomReady event" !b
+window.addEvent('domready', function(){
+	$0
+});
+endsnippet
+
+snippet mcls "ItemLogic class definition" !i
+ItemLogic.install('$1', {
+	Extends: '${2:UIClass}',
+
+	init: function(){
+		$0	
+	}
+});
+endsnippet
+
+snippet mreqj "MooTools JSON Request" !b
+var request = new Request.JSON({
+	url: false,
+	method: false,
+	data: false,
+	onRequest: function(){
+		log('requesting');
+	},
+	onSuccess: function(json, text){
+	},
+	onFailure: function(xhr){
+		log(xhr);
+	}
+})
+endsnippet

@@ -11,7 +11,8 @@ set noswapfile
 set noexpandtab
 set tabstop=2
 set shiftwidth=2
-set autoindent
+"set autoindent
+"set indentkeys
 "set smartindent
 
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
@@ -43,8 +44,11 @@ map <F5> :mkview!
 nmap <c-j> 10j
 nmap <c-k> 10k
 
-" Faster Save
+" Faster Save + Quit
 inoremap <c-s> <c-o>:w<cr>
+inoremap <c-q> <c-o>:q<cr>
+
+nmap <leader>bb :ls<cr>
 
 map <leader>bn :bp
 map <leader>bm :bn
@@ -188,6 +192,24 @@ endfunction
 
 " Start the find and replace command across the entire file
 vmap <leader>z <Esc>:%s/<c-r>=GetVisual()<cr>/
+
+" ================================================================================ 
+" Tabular
+" ================================================================================ 
+
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+	nmap <Leader>a> :Tabularize /=><CR>
+  vmap <Leader>a> :Tabularize /=><CR>
+endif
+
+
+" ================================================================================ 
+" Misc
+" ================================================================================ 
 
 " Toggle Abs/Rel Line Numbers
 function! NumberToggle()
