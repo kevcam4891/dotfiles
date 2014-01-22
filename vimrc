@@ -14,6 +14,7 @@ set shiftwidth=2
 "set autoindent
 "set indentkeys
 "set smartindent
+set autoread
 
 " When the page starts to scroll, keep the cursor 8 lines from the top and 8
 " lines from the bottom
