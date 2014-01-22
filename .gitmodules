@@ -37,6 +37,3 @@
 [submodule "vim/bundle/vim-autoclose"]
 	path = vim/bundle/vim-autoclose
 	url = git://github.com/Townk/vim-autoclose
-[submodule "vim/bundle/vim/bundle/scss-syntax"]
-	path = vim/bundle/vim/bundle/scss-syntax
-	url = https://github.com/cakebaker/scss-syntax.vim.git
