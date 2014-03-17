@@ -52,6 +52,9 @@ alias grm="git rm --cached"
 alias gp="git push -u origin master"
 alias gsmls="git submodule"
 
+# Screen
+alias cl="clear"
+
 # Environment Variables
 export CLICOLOR=1
 export LSCOLORS='exfxcxdxbxegedabagacad'

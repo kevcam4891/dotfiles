@@ -11,7 +11,7 @@ set noswapfile
 set noexpandtab
 set tabstop=2
 set shiftwidth=2
-"set autoindent
+set autoindent
 "set indentkeys
 "set smartindent
 set autoread
@@ -78,8 +78,9 @@ vmap <Leader>px !xmllint --format -<CR>
 nmap <Leader>px !!xmllint --format -<CR>
 nmap <Leader>pxa :%!xmllint --format -<CR>
 
-autocmd FileType puppet setlocal noexpandtab
+"autocmd FileType puppet setlocal noexpandtab
 
+map <leader>bd <esc>:bp<cr>:bd#<cr>
 
 " ================================================================================ 
 " Windows
@@ -223,4 +224,4 @@ endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
 
-au BufNewFile,BufRead *.pp set filetype=ruby
+"au BufNewFile,BufRead *.pp set filetype=ruby
