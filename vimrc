@@ -20,14 +20,19 @@ set autoread
 " lines from the bottom
 set scrolloff=8
 
-syntax on                 " Enable syntax highlighting
-filetype on               " Enable filetype detection
-filetype plugin indent on " Enable filetype-specific indenting
-filetype plugin on        " Enable filetype-specific plugins
-compiler ruby             " Enable compiler support for ruby
-colorscheme desert        " Best colorscheme ever
-
+syntax on                    " Enable syntax highlighting
+filetype on                  " Enable filetype detection
+filetype plugin indent on    " Enable filetype-specific indenting
+filetype plugin on           " Enable filetype-specific plugins
+compiler ruby                " Enable compiler support for ruby
+colorscheme desert           " Best colorscheme ever
+"map <c-c> :w !pbcopy<CR><CR> " Copy to system clipboard
+"map <c-v> :r !pbpaste<CR>    " Paste from system clipboard
+map <c-s> <esc>:w<cr>
 let mapleader=","
+map <leader>i <esc>gg=G''
+map <leader>f <esc>:%!tidy -xml -q -wrap 100<cr>
+
 
 set noerrorbells " No annoying sound on errors
 set novisualbell
@@ -46,7 +51,8 @@ nmap <c-j> 10j
 nmap <c-k> 10k
 
 " Faster Save + Quit
-inoremap <c-s> <c-o>:w<cr>
+"inoremap <c-s> <c-o>:w<cr>
+inoremap <c-s> <esc>:w<cr>
 inoremap <c-q> <c-o>:q<cr>
 
 nmap <leader>bb :ls<cr>
@@ -149,6 +155,16 @@ map <F2> :NERDTreeToggle<CR>
 map <leader>ntf :NERDTreeFind<CR>
 map <leader>ntb :OpenBookmark
 
+
+" ================================================================================ 
+" Git 
+" ================================================================================ 
+
+nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hr <Plug>GitGutterRevertHunk
+
 " ================================================================================ 
 " Ultisnips
 " ================================================================================ 
@@ -208,6 +224,15 @@ if exists(":Tabularize")
   vmap <Leader>a> :Tabularize /=><CR>
 endif
 
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " ================================================================================ 
 " Misc
@@ -222,6 +247,11 @@ function! NumberToggle()
   endif
 endfunc
 
-nnoremap <C-n> :call NumberToggle()<cr>
+noremap <C-n> :call NumberToggle()<cr>
+nnoremap <silent> <F8> :TlistOpen<CR>
+nnoremap <silent> <S-F8> :TlistClose<CR>
+let Tlist_Show_One_File = 1
+let Tlist_GainFocus_On_ToggleOpen = 1
+let tlist_php_settings = 'php;f:function;c:class'
 
 "au BufNewFile,BufRead *.pp set filetype=ruby
