@@ -33,3 +33,47 @@ var request = new Request.JSON({
 	}
 })
 endsnippet
+
+snippet ilrq
+new ItemLogic.Request({
+	url: $1,
+	onSuccess: function(json){
+		$0	
+	}
+}).send();
+endsnippet
+
+snippet vs
+var self = this;
+endsnippet
+
+snippet asm
+new ItemLogic.UI.Modal.Async({
+	url: el.get('href')
+});
+endsnippet
+
+snippet bm
+new ItemLogic.UI2.ButtonMenu.BasicMenu($1, {
+	onAction: function(action, el, e){
+		e.stop();
+		$0
+	}
+});
+endsnippet
+
+snippet uic
+ItemLogic.install('$1', {
+	Extends: 'UIClass',
+
+	init: function(){
+		$0
+	}
+});
+endsnippet
+
+snippet ae
+$1.addEvent('$2', function(e){
+	$0
+});
+endsnippet

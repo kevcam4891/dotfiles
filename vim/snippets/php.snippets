@@ -1,0 +1,248 @@
+snippet um "App::uses()"
+App::uses('$1', '$2');
+endsnippet
+
+snippet am "AJAX Modal"
+// Params
+$rd = $this->rd();
+$action = false;
+$errors = $data = $opts = array();
+
+/*
+* POST
+*/
+
+if (hg($rd, 'submit')) {
+switch (hg($rd, 'action')) {
+default:
+break;
+}
+}
+
+
+$data['action'] = $opts['action'] = $action;
+$this->_ajaxModal('', $errors, $data, $opts);
+endsnippet
+
+snippet ed
+<table cellpadding="0" cellspacing="0" class="ui_editor" width="100%">
+	<tr class="ui_editor_tr">
+		<td class="ui_editor_label">Field Title:</td>
+		<td class="ui_editor_value"></td>
+		<td class="ui_editor_details"></td>
+	</tr>
+</table>
+endsnippet
+
+snippet eo
+'options' => array(
+	$0
+),
+endsnippet
+
+snippet md
+<?php
+$this->Modal->celerity();
+echo $this->Modal->tsb(array(
+	 'title' => 'Modal'
+));
+?>
+<?php
+echo $this->Modal->bodyClose();
+echo $this->Modal->btnsetSubmit();
+echo $this->Modal->initScript('');
+?>
+endsnippet
+
+snippet dbb "Debug Breakpoint"
+$break = true;
+endsnippet
+
+snippet cel "Requre celerity resource"
+require_celerity_resource('$0');
+endsnippet
+
+snippet div "<div> tag"
+<div class="$1">$0</div>
+endsnippet
+
+snippet pfe
+<?php foreach ($1 as $2): ?>
+$0
+<?php endforeach; ?>
+endsnippet
+
+snippet pf
+<?php for ($i=0; $i<$1; $i++): ?>
+${VISUAL}
+<?php endfor; ?>
+endsnippet
+
+snippet dbro
+dbReadonly();
+${VISUAL}
+dbDefault();
+endsnippet
+
+snippet pfc
+<?php for ($i=0; $i<$1; $i++): ?>
+${VISUAL}
+<?php endfor; ?>
+endsnippet
+
+snippet pif
+<?php if ($1): ?>
+${VISUAL}
+<?php endif; ?>
+endsnippet
+
+snippet pife
+<?php if ($1): ?>
+${VISUAL}
+<?php else: ?>
+<?php endif; ?>
+endsnippet
+
+snippet pift
+<?php if (true === false): ?>
+${VISUAL}
+<?php endif; ?>
+endsnippet
+
+snippet opts
+<?php
+$options = array_merge(array(
+	$0
+), gis($options, array()));
+?>
+endsnippet
+
+snippet table
+<table cellpadding="0" cellspacing="0" class="" width="100%">
+<tbody>
+<tr>
+<th></th>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+endsnippet
+
+snippet pe
+<?php echo $1 ?>
+endsnippet
+
+snippet hg
+hg($1, $2)$0
+endsnippet
+
+snippet pa
+<?php echo $this->Html->pa($attrs); ?>
+endsnippet
+
+snippet attrs
+<?php
+$attrs = array();
+$0
+?>
+endsnippet
+
+snippet li
+<ul>
+	<li>$0</li>
+</ul>
+endsnippet
+
+snippet dl
+<dl>
+	<dt>$1</dt>
+	<dd>$0</dd>
+</dl>
+endsnippet
+
+snippet fcb
+echo $this->Form->cb('$1', array(
+	$0
+);
+endsnippet
+
+snippet bige
+<?php
+echo $this->element('ui/bigempty', array(
+	'options' => array()
+));
+?>
+endsnippet
+
+snippet so
+$this->set('options', array(
+	$0
+		));
+endsnippet
+
+snippet pfn
+public function $1(){
+	$0
+}
+endsnippet
+
+snippet cpfn
+public function $1(){
+	$rd = $this->rd();
+	$0
+}
+endsnippet
+
+snippet psfn
+public static function $1(){
+	$0
+}
+endsnippet
+
+snippet cr
+ClassRegistry::init('$0');
+endsnippet
+
+snippet vd
+var_dump($0);
+endsnippet
+
+snippet fixim
+public $import = array('model' => '$0', 'records' => true);
+endsnippet
+
+snippet rac
+$this->add_column('$1', '$2', '$3', array(
+	$0
+));
+endsnippet
+
+snippet rrc
+$this->remove_column('$1', array(
+	'$0'
+));
+endsnippet
+
+snippet rct
+$t = $this->create_table('$1');
+$t->column('$0');
+$t->column('created', 'datetime');
+$t->column('modified', 'datetime');
+$t->finish();
+endsnippet
+
+snippet time
+$time = microtime(true);
+${VISUAL}
+echo microtime(true) - $time."\n";
+endsnippet
+
+snippet ts
+$time = microtime(true);
+endsnippet
+
+snippet te
+echo $time - microtime(true)."\n";
+endsnippet
