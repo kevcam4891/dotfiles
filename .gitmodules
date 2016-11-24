@@ -64,12 +64,6 @@
 [submodule "vim/bundle/vim-misc"]
 	path = vim/bundle/vim-misc
 	url = git@github.com:xolox/vim-misc.git
-[submodule "PHP-Indenting-for-VIm"]
-	path = PHP-Indenting-for-VIm
-	url = git@github.com:2072/PHP-Indenting-for-VIm.git
-[submodule "better-indent-support-for-php-with-html"]
-	path = better-indent-support-for-php-with-html
-	url = https://github.com/captbaritone/better-indent-support-for-php-with-html.git
 [submodule "vim/bundle/PHP-Indenting-for-VIm"]
 	path = vim/bundle/PHP-Indenting-for-VIm
 	url = git@github.com:2072/PHP-Indenting-for-VIm.git
