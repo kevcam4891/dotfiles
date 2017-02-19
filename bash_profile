@@ -157,5 +157,3 @@ export EDITOR=vim
 export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.1.0
 stty -ixon -ixoff
 
-export AWS_ACCESS_KEY=AKIAJH4FILFQM4SITQSA
-export AWS_SECRET_KEY=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
