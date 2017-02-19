@@ -18,6 +18,22 @@ ItemLogic.install('$1', {
 });
 endsnippet
 
+snippet mod
+ItemLogic.install('$1', {
+	Extends: 'UI.Modal.${2:Basic}',
+	
+	onReady: function(){
+		this.parent();
+		$0
+	},
+
+	validate: function(){
+		return true;
+	}
+
+});
+endsnippet
+
 snippet mreqj "MooTools JSON Request" !b
 var request = new Request.JSON({
 	url: false,
@@ -76,4 +92,44 @@ snippet ae
 $1.addEvent('$2', function(e){
 	$0
 });
+endsnippet
+
+snippet mfn
+$1: function(){
+	$0
+}
+endsnippet
+
+snippet prov
+/**
+ * @provides itemlogic-$0
+ */
+endsnippet
+
+snippet jsinit
+/**
+ * @provides itemlogic-$1
+ */
+
+ItemLogic.install('$2', {
+	Extends: 'UIClass',
+
+	init: function(){
+		$0
+	}
+});
+
+window.addEvent('domready', function(){
+	new ItemLogic.$2('$3');
+});
+endsnippet
+
+snippet onaction "Button Menu (on action)"
+onAction: function(a, el, e, bm){
+	switch (a){
+		default:
+		$0
+		break;
+	}
+}
 endsnippet

@@ -52,3 +52,23 @@ snippet clrfix
 	_height: 0;
 }
 endsnippet
+
+snippet prov
+/**
+ * @provides itemlogic-$0
+ */
+endsnippet
+
+snippet trop "Transition: opacity"
+transition: opacity .25s linear;
+-moz-transition: opacity .25s linear;
+-webkit-transition: opacity .25s linear;
+endsnippet
+
+snippet fc ":first-child" 
+$0:first-child
+endsnippet
+
+snippet nc ":nth-child()" 
+$1:nth-child($0)
+endsnippet

@@ -1,5 +1,5 @@
 snippet um "App::uses()"
-App::uses('$1', '$2');
+App::uses('$1', '${2:Model}');
 endsnippet
 
 snippet am "AJAX Modal"
@@ -7,6 +7,7 @@ snippet am "AJAX Modal"
 $rd = $this->rd();
 $action = false;
 $errors = $data = $opts = array();
+$payload = '$0';
 
 /*
 * POST
@@ -21,7 +22,7 @@ break;
 
 
 $data['action'] = $opts['action'] = $action;
-$this->_ajaxModal('', $errors, $data, $opts);
+$this->_ajaxModal($payload, $errors, $data, $opts);
 endsnippet
 
 snippet ed
@@ -50,7 +51,9 @@ echo $this->Modal->tsb(array(
 <?php
 echo $this->Modal->bodyClose();
 echo $this->Modal->btnsetSubmit();
-echo $this->Modal->initScript('');
+echo $this->Modal->initScript('${1:UI.Modal.Submit}', array(
+	$0
+));
 ?>
 endsnippet
 
@@ -162,10 +165,30 @@ snippet dl
 </dl>
 endsnippet
 
+snippet td "Table Cell" 
+<td>
+	$0
+</td>
+endsnippet
+
 snippet fcb
 echo $this->Form->cb('$1', array(
 	$0
 );
+endsnippet
+
+snippet el
+<?php
+echo $this->element('$0');
+?>
+endsnippet
+
+snippet ell
+<?php
+echo $this->element('$1', array(
+	'options' => array($0)
+));
+?>
 endsnippet
 
 snippet bige
@@ -233,6 +256,14 @@ $t->column('modified', 'datetime');
 $t->finish();
 endsnippet
 
+snippet rai
+$this->add_index('$1', '$2');
+endsnippet
+
+snippet rri
+$this->remove_index('$1', '$2');
+endsnippet
+
 snippet time
 $time = microtime(true);
 ${VISUAL}
@@ -245,4 +276,71 @@ endsnippet
 
 snippet te
 echo $time - microtime(true)."\n";
+endsnippet
+
+snippet p
+<p>
+	$0
+</p>
+endsnippet
+
+snippet img
+<img src="$0" />
+endsnippet
+
+snippet ajmret
+	$this->_ajaxModal($payload, $errors, $data);
+	return;
+endsnippet
+
+snippet retmer
+if (empty($error)){
+	$this->_ajaxModal($payload, $errors, $data);
+	return;
+}
+endsnippet
+
+snippet mchkerr
+if (!empty($errors)){
+	$data['action'] = $opts['action'] = $action;
+	$this->_ajaxModal($payload, $errors, $data);
+	return;
+}
+endsnippet
+
+snippet xmlel
+array(
+	'name' => '$1',
+	'value' => '$2',
+	'attrs' => array($3)
+	'children' => array($4),
+),
+endsnippet
+
+snippet start "Start View Block"
+<?php $this->start('$1') ?>
+	${VISUAL}
+<?php $this->end(); ?>
+endsnippet
+
+snippet fet "Fetch View Block"
+<?php $this->fetch('$1') ?>
+endsnippet
+
+snippet sif "Start View Block If..."
+<?php if (hg($modopts, 'action') == "$1"): ?>
+<?php $this->start('$1') ?>
+	${VISUAL}
+<?php $this->end(); ?>
+<?php endif; ?>
+endsnippet
+
+snippet cakedoc "CakePHP CLI Command" 
+'$1' => array(
+	'help' => '$2',
+	'parser' => array(
+		'options' => array($3),
+		'arguments' => array($4)
+	)
+)
 endsnippet
