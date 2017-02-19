@@ -4,6 +4,9 @@ alias rmd="rm -rfv"
 alias c="cd .."
 alias cdl="cd .. && ll"
 alias ejd="osascript -e 'tell application \"Finder\" to eject (every disk whose ejectable is true)'"
+alias bpp="cat ~/dotfiles/bash_profile"
+alias bpe="vim ~/dotfiles/bash_profile"
+alias bps=". ~/dotfiles/bash_profile"
 
 # Development
 alias w3="cd ~/dev/www"
@@ -16,9 +19,13 @@ alias qmwr="cd ~/dev/www/itemlogic/docroot/app/webroot"
 alias qmapp="cd ~/dev/itemlogic/docroot/app.itemlogic.dev/httpdocs/app"
 alias ils="cd ~/dev/www/itemlogic-stg/itemlogic-stg"
 alias ilscss="cd ~/dev/itemlogic/docroot/app.itemlogic.dev/httpdocs/app/webroot-src/scss"
-alias ildr="cd ~/dev/itemlogic/docroot/app.itemlogic.dev/httpdocs/app"
+alias ildr="cd ~/dev/itemlogic/docker/itemlogic-app/src/app"
 alias ilctags='ctags -R --exclude="app/vendor*" --exclude="app/webroot/vendor" --exclude="app/webroot/js/vendor"'
-alias qmawsbin="cd ~/dev/qm/aws/scripts"
+alias qmbin="cd ~/dev/qm/aws/scripts"
+
+# Clients
+alias ctp="cd ~/dev/qm/clients/centerpoint";
+alias kds="cd ~/dev/qm/clients/kds";
 
 # Selenium
 alias sel="java -jar ~/dev/selenium/selenium-server-standalone-2.45.0.jar"
@@ -37,19 +44,37 @@ export -f selenium
 # Docker
 alias dps="docker ps"
 alias dpsa="docker ps -a"
-alias dims="docker images"
+alias dim="docker images"
+alias dst="docker stats $(docker ps --format={{.Names}})"
 alias drmm='docker rm $(docker ps -aq)'
-alias drmempty="docker rmi $(docker images | grep '^<none>' | awk '{print $3}')"
 alias dsa='docker stop $(docker ps -aq)'
 alias dc="docker-compose"
 alias dcb="docker-compose build"
+alias dcbecs="dc -f docker-compose.yml -f docker-compose.prd.yml build"
+alias dcprd="docker-compose -f docker-compose.yml -f docker-compose.prd.yml"
 alias dcr="docker-compose run --rm"
 alias dcu="docker-compose up"
 alias dcd="docker-compose down"
 alias db="docker run -it --rm --entrypoint /bin/bash"
 alias gl="dc run --rm sass glue --namespace=sx --retina --recursive --separator=_ --project /var/www/html/webroot-src/sx/ --img=./var/www/html/webroot/img/sx --css=/var/www/html/webroot/css/sx --cachebuster --url=/img/sx/"
+function de { docker exec -it $1 /bin/bash; }
 function dsrm { docker stop $1 && docker rm $1; }
+function drmiempty { docker rmi $(docker images | grep '^<none>' | awk '{print $3}'); }
+function ecspush {
+	login=`aws ecr get-login --region us-east-1`
+	eval $login
+	docker push 978130169167.dkr.ecr.us-east-1.amazonaws.com/$1:latest
+}
+export -f de
 export -f dsrm
+export -f drmiempty
+export -f ecspush
+
+# Aws
+function cfup { aws cloudformation update-stack --capabilities CAPABILITY_IAM --stack-name $1 --template-body file://$2; }
+function ecstask { aws ecs register-task-definition --cli-input-json file://$1; }
+export -f cfup
+export -f ecstask
 
 # VirtualBox
 alias vbm="VBoxManage"
@@ -117,6 +142,7 @@ alias cl="clear"
 alias nl2c="grep -v imsmanifest | gawk -vORS=, '{ print $1 }' | sed 's/,$/\n/'"
 alias kdscsv="cut -d '/' -f2 | cut -d '.' -f1 | grep -v imsmanifest | nl2c"
 alias pmin="lp -o sides=two-sided-long-edge -o number-up=2" # Send content to printer
+alias pubip="wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]|.]//g'"
 
 # Environment Variables
 export CLICOLOR=1
@@ -130,3 +156,6 @@ export EDITOR=vim
 # EC2 Tools
 export EC2_HOME=/usr/local/ec2/ec2-api-tools-1.7.1.0
 stty -ixon -ixoff
+
+export AWS_ACCESS_KEY=AKIAJH4FILFQM4SITQSA
+export AWS_SECRET_KEY=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
