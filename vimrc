@@ -198,6 +198,7 @@ nmap ,sv :so $MYVIMRC<CR>
 " ================================================================================ 
 
 let NERDTreeShowHidden=1 " NERDTree Settings
+let NERDTreeIgnore = ['\.DS_Store']
 nmap <F2> :NERDTreeToggle<CR>
 map <leader>ntf :NERDTreeFind<CR>
 map <leader>nn :NERDTreeFind<CR>
@@ -334,7 +335,7 @@ let g:vdebug_options= {
 "Debug: Vagrant Box
 let g:vdebug_options['server'] = "192.168.99.1"
 let g:vdebug_options['path_maps'] = { 
-\	"/docroot/app.itemlogic.dev": "/Users/kevin/dev/itemlogic/docroot/app.itemlogic.dev",
+\	"/docroot": "/Users/kevin/dev/itemlogic/docker/itemlogic-app/src/app",
 \}
 
 "let g:vdebug_options['server'] = "10.254.254.254"
