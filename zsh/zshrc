@@ -1,0 +1,163 @@
+alias ll="ls -lah"
+alias ze="vim ~/.zshrc"
+alias zs="source ~/.zshrc"
+
+# Git 
+alias gco="git checkout --ours . && git add -A"
+alias esdocd="git checkout staging; git push; git checkout main; git rebase staging; git push; git checkout staging"
+
+function killp {
+  lsof -ti:$1 | xargs kill -9
+}
+
+function esmb {
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+  if [[ "$BRANCH" == "dev" ]]; then echo "Cannot do this operation on dev."; return; fi
+  echo "Merging $BRANCH into dev...";
+  git rebase dev && git checkout dev && git rebase $BRANCH && git branch -D $BRANCH
+}
+
+function esmybr {
+git for-each-ref \
+  --sort=-committerdate \
+  --format='%(refname:short) | %(committerdate:relative) | %(subject)' \
+  "refs/heads/kc" \
+| while IFS='|' read -r branch date subject; do
+    printf "%s | %s | %.40s\n" "$branch" "$date" "$subject"
+  done \
+| column -t -s '|'
+}
+
+function ese {
+  code requests/api/.env requests/api/exam/exam.http requests/api/exam/exam-config.http requests/api/exam/exam-session.http
+}
+
+function esen {
+  cp requests/api/.env.empty.env requests/api/.env
+  code requests/api/.env requests/api/exam/exam.http requests/api/exam/exam-config.http requests/api/exam/exam-session.http
+}
+
+# usage: aws_set_profile <profile> <access_key> <secret_key> <token> <region> [output]
+function aws_set_profile() {
+  local profile=$1
+  local access_key=$2
+  local secret_key=$3
+  local token=$4
+  local region=${5:-us-east-1}
+  local output=${6:-json}   # default to json if not provided
+
+  if [[ -z "$profile" || -z "$access_key" || -z "$secret_key" || -z "$region" ]]; then
+    echo "Usage: aws_set_profile <profile> <access_key> <secret_key> <region> [output]"
+    return 1
+  fi
+
+  aws configure set aws_access_key_id     "$access_key" --profile "$profile"
+  aws configure set aws_secret_access_key "$secret_key" --profile "$profile"
+  aws configure set aws_session_token     "$token"      --profile "$profile"
+  aws configure set region                "$region"     --profile "$profile"
+  aws configure set output                "$output"     --profile "$profile"
+
+  echo "AWS profile '$profile' configured."
+}
+
+function esloginstg {
+  c=$(op item get "AWS: ES Develop (Kevin)" --otp)
+  l=$(AWS_PROFILE=examspark-dev-kevin aws sts assume-role \
+    --role-arn arn:aws:iam::214198971157:role/AdministratorAccessRole \
+    --role-session-name kevin --serial-number arn:aws:iam::657595186242:mfa/ExamSparkDevKevinAuthenticator \
+    --duration-seconds 43200 --token-code $c)
+
+  a=$(echo $l | jq -r ".Credentials.AccessKeyId")
+  k=$(echo $l | jq -r ".Credentials.SecretAccessKey")
+  t=$(echo $l | jq -r ".Credentials.SessionToken")
+
+  aws_set_profile examspark-stg-kevin $a $k $t us-east-1
+}
+
+function gmb {
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+  if [[ "$BRANCH" == "main" ]]; then echo "Cannot do this operation on main."; return; fi
+  echo "Merging $BRANCH into main...";
+  git rebase main && git checkout main && git rebase $BRANCH && git branch -D $BRANCH
+}
+
+# Delete local and upstream branch in ExamSpark repo
+function esdelbr {
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+  if [[ "$BRANCH" == "$1" ]]; then
+    echo "Cannot delete the current branch ($1). Please switch to another branch first."
+    return 1
+  fi
+  git push -d upstream $1 --force --no-verify 2>/dev/null; git branch -D $1 2>/dev/null
+}
+
+# ExamSpark
+alias es="cd ~/dev/projects/examspark-cms"
+alias esapi="es; cd amplify/backend/function/RestApiV1/lib/"
+alias esh="cd ~/dev/projects/examspark-html-pdf"
+alias wb="export AWS_PROFILE=examspark-dev-kevin; cd ~/dev/projects/campfire-workbench"
+alias cfui="cd ~/dev/projects/campfire-ui"
+alias ess="cd ~/dev/projects/campfire-sdk"
+alias esf="cd ~/dev/projects/campfire-sdk-focus-sample"
+alias esi="cd ~/dev/projects/examspark-infrastructure-prod"
+alias esu="cd ~/dev/projects/examspark-cms-upstream"
+alias xs="cd ~/dev/projects/examspark-cms"
+alias grud="git rebase upstream/dev"
+alias gb="git rev-parse --abbrev-ref HEAD"
+alias gpo="git push origin"
+alias gpou="git push origin && git push upstream --no-verify"
+alias gpounow="git push origin --no-verify && git push upstream --no-verify"
+alias gfp="git fetch --prune"
+alias gfpu="git fetch --prune upstream"
+alias gts="gt sync && git fetch upstream --prune"
+alias gtmas="gt modify --all && gt submit"
+alias gtu="brew update && brew upgrade withgraphite/tap/graphite"
+alias gpu="git push upstream"
+alias gbd="git push --delete"
+alias esgpd="git push upstream dev:develop"
+alias lol="git log --pretty=format:\"%h%x09%an%x09%ad%x09%s\""
+alias esgpuall="git push upstream dev:develop dev:master dev:dev"
+alias esgpud="git push upstream dev:develop dev:dev"
+alias escli="./cli/bin/run"
+alias esclid="node --inspect ./cli/bin/run"
+alias esn="ngrok start web api"
+alias neo="docker run --publish=7474:7474 \
+	--publish=7687:7687 --volume=$HOME/neo4j/data:/data \
+	--name=neo4j --volume=$HOME/neo4j/logs:/logs neo4j/neo4j-arm64-experimental:4.1.0-arm64"
+alias esampapps="awse amplify list-apps | jq '.apps[] | { id: .appId, arn: .appArn, name: .name }'"
+alias escanstart="awse ec2 start-instances --instance-id i-0d1b555f3f8836654"
+alias escanstop="awse ec2 stop-instances --instance-id i-0d1b555f3f8836654"
+
+function gphot {
+  [ $(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3) = develop ] && echo hello
+}
+
+function esampjobs {
+  awse amplify list-jobs --app-id $1 --branch-name $2 | jq '.jobSummaries[0]'
+}
+
+function esfo {
+  code /Users/kevin/dev/projects/campfire-sdk
+  code /Users/kevin/dev/projects/campfire-sdk-focus-sample
+  code /Users/kevin/dev/projects/examspark-cms
+}
+
+alias eslog="escli logs:appsync"
+alias xslog="escli logs:appsync"
+
+function esp {
+  es && cd packages/$1
+}
+function esl {
+  es && cd amplify/backend/function/$1
+}
+function gctags {
+  git tag --points-at $1 | xargs git tag -d
+}
+function esriver {
+  git fetch
+  git log master..dev --pretty=format:"%<(10,trunc)%ae | %h | %s"
+}
+
+alias pibd="pnpm install && pnpm build:dev"
+alias pc="pnpm cli"
